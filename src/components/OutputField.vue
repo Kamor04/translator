@@ -1,6 +1,7 @@
 <template>
   <v-container class="mt-7">
     <v-textarea
+      v-model="translatedText"
       outlined
     >
       <template v-slot:label>
@@ -15,6 +16,7 @@
 <script>
 export default {
   name: 'InputField',
+  props: ['translatedText'],
   data: () => ({
   }),
 };

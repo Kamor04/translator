@@ -13,7 +13,7 @@
     <v-content>
       <div class="d-flex mx-6">
         <input-field v-on:textToTranslate="textToTranslate"></input-field>
-        <output-field></output-field>
+        <output-field :translatedText="translatedText"></output-field>
       </div>
     </v-content>
   </v-app>
@@ -31,18 +31,17 @@ export default {
     OutputField,
   },
 
-  data: () => ({
-    textToTranslate: null
-  }),
+  data () {
+    return {
+      translatedText: ''
+    }
+  },
   methods: {
-    textToTranslated() {
-      this.$http.get('https://translate.yandex.net/api/v1.5/tr.json/translate?key=trnsl.1.1.20200315T110837Z.602d8c8310f62b68.29ca80e2ab938f171ce05cae11db76691b4c57a4&lang=eng&text=' + this.textToTranslate).then((res) => {
-        console.log(res.body['textToTranslate'][0])
+    textToTranslate(text) {
+      this.$http.get('https://translate.yandex.net/api/v1.5/tr.json/translate?key=trnsl.1.1.20200315T110837Z.602d8c8310f62b68.29ca80e2ab938f171ce05cae11db76691b4c57a4&lang=en&text=' + text).then((res) => {
+        this.translatedText = (res.body['text'][0])
       })
     }
-    // textToTranslate(textToTranslate) {
-    //   console.log(textToTranslate);
-    //},
   }
 }
 </script>

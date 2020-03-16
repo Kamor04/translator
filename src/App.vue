@@ -1,28 +1,48 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
+  <v-app>
+    <v-app-bar
+      app
+      color="primary"
+      dark
+    >
+      <div class="d-flex">
+        Translator
+      </div>
+    </v-app-bar>
+
+    <v-content>
+      <div class="d-flex mx-6">
+        <input-field v-on:textToTranslate="textToTranslate"></input-field>
+        <output-field></output-field>
+      </div>
+    </v-content>
+  </v-app>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import InputField from './components/InputField.vue';
+import OutputField from './components/OutputField.vue';
 
 export default {
   name: 'App',
+
   components: {
-    HelloWorld
+    InputField,
+    OutputField,
+  },
+
+  data: () => ({
+    textToTranslate: null
+  }),
+  methods: {
+    textToTranslated() {
+      this.$http.get('https://translate.yandex.net/api/v1.5/tr.json/translate?key=trnsl.1.1.20200315T110837Z.602d8c8310f62b68.29ca80e2ab938f171ce05cae11db76691b4c57a4&lang=eng&text=' + this.textToTranslate).then((res) => {
+        console.log(res.body['textToTranslate'][0])
+      })
+    }
+    // textToTranslate(textToTranslate) {
+    //   console.log(textToTranslate);
+    //},
   }
 }
 </script>
-
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>

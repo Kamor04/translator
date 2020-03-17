@@ -1,5 +1,5 @@
 <template>
-  <v-container class="mt-7">
+  <v-container>
     <v-row class="text-center">
       <v-textarea
         v-model="textToTranslate"
@@ -20,11 +20,12 @@ export default {
   data: () => ({
     rules: [(v) => v.length <= 100 || 'Max 100 characters'],
     textToTranslate: '',
+    language: 'en'
   }),
   methods: {
     submitText() {
-      this.$emit('textToTranslate', this.textToTranslate);
-    },
-  },
-};
+      this.$emit('textToTranslate', this.textToTranslate)
+    }
+  }
+}
 </script>

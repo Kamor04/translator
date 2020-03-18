@@ -24,7 +24,7 @@
         </v-btn-toggle>
       </v-row>
       <div class="d-flex mx-6">
-        <input-field v-on:textToTranslate="textToTranslate"></input-field>
+        <input-field v-on:emitTextToTranslate="textToTranslate"></input-field>
         <output-field :translatedText="translatedText"></output-field>
       </div>
     </v-content>

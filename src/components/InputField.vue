@@ -6,17 +6,23 @@
         outlined
         :rules="rules"
         counter="100"
-      />
+      >
+      </v-textarea>
     </v-row>
       <div class="text-right">
         <v-btn @click="submitText">TRANSLATE</v-btn>
       </div>
+      <virtual-keyboard :textToTranslate="textToTranslate"/>
   </v-container>
 </template>
 
 <script>
+import VirtualKeyboard from './VirtualKeyboard.vue'
 export default {
   name: 'InputField',
+  components: {
+    VirtualKeyboard
+  },
   data: () => ({
     rules: [(v) => v.length <= 100 || 'Max 100 characters'],
     textToTranslate: '',
@@ -24,7 +30,7 @@ export default {
   }),
   methods: {
     submitText() {
-      this.$emit('textToTranslate', this.textToTranslate)
+      this.$emit('emitTextToTranslate', this.textToTranslate)
     }
   }
 }

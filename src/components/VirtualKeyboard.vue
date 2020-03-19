@@ -7,6 +7,7 @@
 </template>
 <script>
 export default {
+  name: 'VirtualKeyboard',
   data() {
     return {
       message: 'Hello Vue-virtual-keyboard!',

@@ -2,22 +2,23 @@
   <v-container>
     <v-row class="text-center">
       <v-textarea
-        v-model="textToTranslate"
+        v-model.lazy="textToTranslate"
         outlined
         :rules="rules"
         counter="100"
       >
       </v-textarea>
     </v-row>
-      <div class="text-right">
+      <!-- <div class="text-right">
         <v-btn @click="submitText">TRANSLATE</v-btn>
-      </div>
+      </div> -->
       <virtual-keyboard :textToTranslate="textToTranslate"/>
   </v-container>
 </template>
 
 <script>
 import VirtualKeyboard from './VirtualKeyboard.vue'
+import debounce from 'lodash.debounce'
 export default {
   name: 'InputField',
   components: {
@@ -26,12 +27,15 @@ export default {
   data: () => ({
     rules: [(v) => v.length <= 100 || 'Max 100 characters'],
     textToTranslate: '',
-    language: 'en'
+    language: 'en',
   }),
+  mounted () {
+    this.submitText()
+  },
   methods: {
-    submitText() {
+    submitText: debounce(function() {
       this.$emit('emitTextToTranslate', this.textToTranslate)
-    }
+    }, 500)
   }
 }
 </script>

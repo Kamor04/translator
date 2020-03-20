@@ -39,17 +39,19 @@ export default {
   name: 'App',
   components: {
     InputField,
-    OutputField,
+    OutputField
   },
   data () {
     return {
       translatedText: '',
-      language: 'en'
+      language: 'en',
+      API: 'https://translate.yandex.net/api/v1.5/tr.json/translate?key='
     }
   },
   methods: {
     textToTranslate(text) {
-      this.$http.get('https://translate.yandex.net/api/v1.5/tr.json/translate?key=trnsl.1.1.20200315T110837Z.602d8c8310f62b68.29ca80e2ab938f171ce05cae11db76691b4c57a4&lang=' + this.language + '&text=' + text).then((res) => {
+      this.$http.get(this.API + 'trnsl.1.1.20200315T110837Z.602d8c8310f62b68.29ca80e2ab938f171ce05cae11db76691b4c57a4&lang=' + this.language + '&text=' + text)
+      .then((res) => {
         this.translatedText = (res.body['text'][0])
       })
     }
